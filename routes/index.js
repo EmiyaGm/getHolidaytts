@@ -64,7 +64,9 @@ router.get('/getholidaytss', async (ctx, next) => {
     result = `今天是${getFestival(today)}，可以爽玩了`
   }
   ctx.body = {
-    data: result,
+    code: 0,
+    tts: result,
+    date: today
   }
 })
 
