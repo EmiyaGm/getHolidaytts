@@ -1,5 +1,6 @@
 const moment = require('moment')
 const ww = require('chinese-workday')
+const axios = require('axios')
 const isWorkday = ww.isWorkday
 const isHoliday = ww.isHoliday
 const getFestival = ww.getFestival
@@ -49,6 +50,17 @@ const services = {
       result = `今天是${getFestival(today)}，可以爽玩了`
     }
     return result
+  },
+  getEpidemicData: async () => {
+    const res = await axios
+      .get('http://c.m.163.com/ug/api/wuhan/app/data/list-total')
+      .catch((err) => err)
+    if (res && res.status === 200) {
+      return res.data
+    } else {
+      console.error('获取疫情数据: 发生错误', res)
+      return {}
+    }
   },
 }
 
